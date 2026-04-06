@@ -23,9 +23,17 @@ def make_endpoints(app, backend):
     @app.route("/")
     def home():
         """Returns the home page."""
-        return render_template("main.html",
-                               page_name="Wiki Index",
-                               page_content="Welcome to the Wiki!")
+        return render_template(
+            "main.html",
+            page_name="Home",
+            page_content="""
+            <h3>Welcome to the Wiki</h3>
+            <p>
+            This is your central hub for exploring all pages in the Cats on Skis Wiki.
+            Use the navigation above to browse through different sections.
+            </p>
+            """
+        )
 
     @app.route("/about")
     def about():
@@ -40,13 +48,17 @@ def make_endpoints(app, backend):
     @app.route("/pages")
     def all_pages():
         """Returns all of the pages in a list via backend.get_all_page_names."""
-        return render_template("pages.html",
-                               page_name="Wiki Index",
-                               all_pages=backend.get_all_page_names())
+        return render_template(
+            "pages.html",
+            page_name="Wiki Index",
+            all_pages=backend.get_all_page_names()
+        )
 
     @app.route("/pages/<name>")
     def pages(name):
         """Returns the page from backend.get_wiki_page"""
-        return render_template("main.html",
-                               page_name=name,
-                               page_content=backend.get_wiki_page(name))
+        return render_template(
+            "main.html",
+            page_name=name,
+            page_content=backend.get_wiki_page(name)
+        )
